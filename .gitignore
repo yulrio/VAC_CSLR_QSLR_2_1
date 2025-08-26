@@ -7,3 +7,5 @@ README_OLD.md
 
 __pycache__/
 *.pyc
+
+/dataset/QSLR2024
