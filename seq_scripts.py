@@ -79,7 +79,8 @@ def seq_eval(cfg, loader, model, device, mode, epoch, work_dir, recoder,
             triplet=True,
         )
     except:
-        print("Unexpected error:", sys.exc_info()[0])
+        # print("Unexpected error:", sys.exc_info()[0])
+        print("Unexpected error:", sys.exc_info())
         lstm_ret = 100.0
     finally:
         pass
