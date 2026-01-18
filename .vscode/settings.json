@@ -1,20 +1,17 @@
 {
-	"editor.fontSize": 15,
-	"window.zoomLevel": 0.5,
-	"workbench.colorTheme": "Vim Deep Dark",
-	"workbench.iconTheme": "material-icon-theme",
-	"terminal.integrated.fontSize": 16,
-	"debug.console.wordWrap": true,
-	"editor.formatOnSave": true,
-	"editor.formatOnPaste": true,
-	"editor.formatOnType": false,
-	"editor.tabSize": 4,
-	"editor.insertSpaces": true,
-	"editor.detectIndentation": true,
-	"editor.wordWrap": "wordWrapColumn",
-	"editor.wordWrapColumn": 100,
-	"editor.rulers": [
-			100
-		],
-
+  "editor.fontSize": 15,
+  "workbench.colorTheme": "GitHub Dark Default",
+  "workbench.iconTheme": "bearded-icons",
+  "terminal.integrated.fontSize": 15,
+  "debug.console.wordWrap": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": false,
+  "editor.tabSize": 4,
+  "editor.lineHeight": 24,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": true,
+  "editor.wordWrap": "wordWrapColumn",
+  "editor.wordWrapColumn": 130,
+  "editor.rulers": [130]
 }
