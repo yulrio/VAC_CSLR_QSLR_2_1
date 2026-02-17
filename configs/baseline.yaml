@@ -3,7 +3,7 @@ phase: train
 dataset: QSLR2024
 # dataset: phoenix14-si5
 num_epoch: 26 #40
-work_dir: ./work_dir_full/mobilenet_v2/
+work_dir: ./work_dir_masked/mobilenet_v2/
 batch_size: 2
 random_seed: 0
 test_batch_size: 2
