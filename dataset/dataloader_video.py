@@ -60,6 +60,10 @@ class BaseFeeder(data.Dataset):
         fi = self.inputs_list[index]
         img_folder = os.path.join(self.prefix, "features/fullFrame-256x256px/" + fi['folder'])
         img_list = sorted(glob.glob(img_folder))
+        
+        if not img_list:
+            raise FileNotFoundError(f"Frame gambar tidak ditemukan pada path: {img_folder}. Pastikan dataset/gambar tersedia dan path-nya benar.")
+            
         label_list = []
         for phase in fi['label'].split(" "):
             if phase == '':
