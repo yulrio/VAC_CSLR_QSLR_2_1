@@ -12,6 +12,6 @@
   "editor.insertSpaces": true,
   "editor.detectIndentation": true,
   "editor.wordWrap": "wordWrapColumn",
-  "editor.wordWrapColumn": 130,
-  "editor.rulers": [130]
+  "editor.wordWrapColumn": 100,
+  "editor.rulers": [100]
 }
