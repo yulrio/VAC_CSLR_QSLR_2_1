@@ -67,8 +67,8 @@ class SLRModel(nn.Module):
         if c2d_type == "shufflenet_v2_x1_0":
             self.conv2d = self._modify_shufflenet(self.conv2d)
 
-        for param in self.conv2d.parameters():
-            param.requires_grad = False
+        # for param in self.conv2d.parameters():
+        #     param.requires_grad = False
 
         self.conv1d = TemporalConv(input_size=512,
                                     hidden_size=hidden_size,
