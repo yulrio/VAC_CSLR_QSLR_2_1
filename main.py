@@ -119,7 +119,7 @@ class Processor():
         return model
 
     def load_model_weights(self, model, weight_path):
-        state_dict = torch.load(weight_path)
+        state_dict = torch.load(weight_path, weights_only=False) #torch.load(weight_path)
         if len(self.arg.ignore_weights):
             for w in self.arg.ignore_weights:
                 if state_dict.pop(w, None) is not None:
@@ -140,7 +140,7 @@ class Processor():
 
     def load_checkpoint_weights(self, model, optimizer):
         self.load_model_weights(model, self.arg.load_checkpoints)
-        state_dict = torch.load(self.arg.load_checkpoints)
+        state_dict = torch.load(self.arg.load_checkpoints, weights_only=False) #torch.load(self.arg.load_checkpoints)
 
         if len(torch.cuda.get_rng_state_all()) == len(state_dict['rng_state']['cuda']):
             print("Loading random seeds...")
