@@ -3,11 +3,11 @@ phase: train
 dataset: QSLR2024
 # dataset: phoenix14-si5
 num_epoch: 61
-work_dir: ./work_dir_1_2_3/resnet18-vanila-roi/
+work_dir: ./work_dir_1_2_3/resnet18-skdm-roi/
 batch_size: 4
 random_seed: 0
 test_batch_size: 2
-num_worker: 12 #8 10
+num_worker: 8 #10
 device: 0,1
 log_interval: 50
 eval_interval: 1
@@ -44,5 +44,5 @@ model_args:
   conv_type: 2
   use_bn: 1
   # SMKD
-  share_classifier: False
-  weight_norm: False
+  share_classifier: True
+  weight_norm: True
