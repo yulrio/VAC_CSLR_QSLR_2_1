@@ -8,7 +8,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torchvision.models as models
 from modules.criterions import SeqKD
-from modules import BiLSTMLayer, TemporalConv
+from modules import BiLSTMLayer, TemporalConv, TemporalSelfAttention
 from torchvision.models import get_model_weights
 
 
@@ -36,7 +36,8 @@ class SLRModel(nn.Module):
     def __init__(
             self, num_classes, c2d_type, conv_type, use_bn=False,
             hidden_size=1024, gloss_dict=None, loss_weights=None,
-            weight_norm=True, share_classifier=True
+            weight_norm=True, share_classifier=True,
+            use_attention=False, attention_heads=4
     ):
         super(SLRModel, self).__init__()
         self.decoder = None
@@ -44,6 +45,7 @@ class SLRModel(nn.Module):
         self.criterion_init()
         self.num_classes = num_classes
         self.loss_weights = loss_weights
+        self.use_attention = use_attention
 
         weights_enum = get_model_weights(c2d_type)
         weights = weights_enum.DEFAULT if weights_enum else None
@@ -78,6 +80,12 @@ class SLRModel(nn.Module):
         self.decoder = utils.Decode(gloss_dict, num_classes, 'beam')
         self.temporal_model = BiLSTMLayer(rnn_type='LSTM', input_size=hidden_size, hidden_size=hidden_size,
                                             num_layers=2, bidirectional=True)
+        if self.use_attention:
+            self.temporal_attention = TemporalSelfAttention(
+                d_model=hidden_size,
+                num_heads=attention_heads,
+                dropout=0.1
+            )
         if weight_norm:
             self.classifier = NormLinear(hidden_size, self.num_classes)
             self.conv1d.fc = NormLinear(hidden_size, self.num_classes)
@@ -118,7 +126,10 @@ class SLRModel(nn.Module):
         x = conv1d_outputs['visual_feat']
         lgt = conv1d_outputs['feat_len']
         tm_outputs = self.temporal_model(x, lgt)
-        outputs = self.classifier(tm_outputs['predictions'])
+        tm_feat = tm_outputs['predictions']
+        if self.use_attention:
+            tm_feat = self.temporal_attention(tm_feat, lgt)
+        outputs = self.classifier(tm_feat)
         pred = None if self.training \
             else self.decoder.decode(outputs, lgt, batch_first=False, probs=False)
         conv_pred = None if self.training \
